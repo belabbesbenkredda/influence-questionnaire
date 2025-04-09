@@ -4,7 +4,7 @@
 
 Thank you for contributing to this research on the health of public spheres in Lebanon and Tunisia. Your expert insights are central to this project, hosted at [publicspheres.org](https://www.publicspheres.org). Our goal is to refine an **Influence Score** that helps us understand which media content shapes public opinion the most.
 
-We’ll ask you to:
+We'll ask you to:
 - Select your country (Lebanon or Tunisia)
 - Submit media samples for the period **January 1 to March 31, 2025**
 - Score each sample’s **Reach**, **Salience**, and **Discursiveness**, with explanations
@@ -99,7 +99,7 @@ _(Select or type in from your own list)_
 
 ---
 
-## 🧠 Section 4: Discursiveness (Persuasiveness)
+## 🧠 Section 4: Discursiveness
 
 **Definition:** *Discursiveness* refers to the content’s potential to change minds, spark critical engagement, or persuade. We assess this using three classical elements of persuasion: Logos (reason), Pathos (emotion), and Ethos (credibility).*
 
