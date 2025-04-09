@@ -1,89 +1,142 @@
-import streamlit as st
-import pandas as pd
-import datetime
 
-st.set_page_config(page_title="Public Sphere Media Influence Questionnaire", layout="wide")
-st.title("🗞️ Media Influence Questionnaire")
-st.markdown("""
-Welcome to the Public Sphere Influence Survey for Lebanon and Tunisia.
-This tool is part of a project hosted at [publicspheres.org](https://www.publicspheres.org). Your responses will help us refine our Influence Score model.
+# Public Sphere Influence Questionnaire
 
-👉 **Influence = Reach × Salience × Persuasiveness**
+**Welcome!**
 
-Please fill in the following fields for each media sample from **Jan 1 – Mar 31, 2025**. Aim for 8–10 per media type. Click **Submit Sample** at the end of each sample, and use **Start New Sample** to enter another.
-""")
+Thank you for contributing to this research on the health of public spheres in Lebanon and Tunisia. Your expert insights are central to this project, hosted at [publicspheres.org](https://www.publicspheres.org). Our goal is to refine an **Influence Score** that helps us understand which media content shapes public opinion the most.
 
-if "samples" not in st.session_state:
-    st.session_state.samples = []
+We’ll ask you to:
+- Select your country (Lebanon or Tunisia)
+- Submit media samples for the period **January 1 to March 31, 2025**
+- Score each sample’s **Reach**, **Salience**, and **Discursiveness**, with explanations
+- Suggest events that may have shaped public opinion during this period
 
-st.header("1. Media Sample Details")
-title = st.text_input("Media Title or Description")
-platform = st.text_input("Platform or Outlet (e.g., channel, page, newspaper)")
-link = st.text_input("Link (if available)")
-date = st.date_input("Date of Broadcast/Publication", min_value=datetime.date(2025,1,1), max_value=datetime.date(2025,3,31))
-media_type = st.selectbox("Media Type", ["TV", "Radio", "Print", "Online News", "Podcast", "Social Media", "Hybrid/Other"])
-transcript = st.radio("Transcript Available?", ["Yes", "No", "Not Sure"])
-transcript_details = st.text_input("Transcript Link or Access Notes (if known)")
+Our working formula is:
+> **Influence = Reach × Salience × Discursiveness**
 
-st.header("2. Reach")
-reach_score = st.slider("Estimated Reach (0–1)", 0.0, 1.0, 0.5, step=0.01)
-reach_basis = st.text_area("Basis for Reach Estimate (audience ratings, views, impressions, professional judgment, etc.)")
-reach_notes = st.text_area("Additional Notes on Reach (optional)")
+We are media-type agnostic—so whether a radio interview or a viral TikTok is most influential, we let the data speak. You’ll go through a few samples per media category (TV, radio, print, social media, etc.), then move to the next.
 
-st.header("3. Salience")
-salience_score = st.slider("Salience Score (0–1)", 0.0, 1.0, 0.5, step=0.01)
-issues = st.multiselect("Which public issues are reflected in the content?", [
-    "Economy / Cost of Living", "Government Leadership / Corruption", "Security / Civil Unrest",
-    "Health", "Immigration / Emigration", "Freedom of Speech / Civil Liberties", "Other"
-])
-salience_notes = st.text_area("Explanation of Salience (1–4 sentences)")
+---
 
-st.header("4. Persuasiveness (Discursiveness)")
+## 📍 First, Select Your Country
+Please choose the context you are submitting samples for:
+- [ ] Lebanon
+- [ ] Tunisia
 
-st.subheader("Logos (Reasoning)")
-logos_score = st.slider("Logos Score (0–1)", 0.0, 1.0, 0.5, step=0.01)
-logos_notes = st.text_area("Explanation of Logos")
+This selection will route you through a country-specific path.
 
-st.subheader("Pathos (Emotion)")
-pathos_score = st.slider("Pathos Score (0–1)", 0.0, 1.0, 0.5, step=0.01)
-pathos_notes = st.text_area("Explanation of Pathos")
+---
 
-st.subheader("Ethos (Credibility)")
-ethos_score = st.slider("Ethos Score (0–1)", 0.0, 1.0, 0.5, step=0.01)
-ethos_notes = st.text_area("Explanation of Ethos")
+## Section 0: Salient Issues in Your Context
+Before scoring individual samples, help us understand the **key public concerns** during this period. We will use these later to assess how well each media sample aligns with public concern.
 
-st.header("5. Final Reflections")
-reflections = st.text_area("What are we missing in how we assess influence? Any suggestions to improve the model?")
+**0.1 In your view, what were the most salient public issues in your country between Jan 1 and Mar 31, 2025?**
+_(Please list 5–10 issues. These will guide the salience evaluation of all your samples.)_
 
-if st.button("✅ Submit Sample"):
-    sample = {
-        "Title": title,
-        "Platform": platform,
-        "Link": link,
-        "Date": str(date),
-        "Type": media_type,
-        "Transcript Available": transcript,
-        "Transcript Details": transcript_details,
-        "Reach Score": reach_score,
-        "Reach Basis": reach_basis,
-        "Reach Notes": reach_notes,
-        "Salience Score": salience_score,
-        "Issues": issues,
-        "Salience Notes": salience_notes,
-        "Logos": logos_score,
-        "Logos Notes": logos_notes,
-        "Pathos": pathos_score,
-        "Pathos Notes": pathos_notes,
-        "Ethos": ethos_score,
-        "Ethos Notes": ethos_notes,
-        "Reflections": reflections
-    }
-    st.session_state.samples.append(sample)
-    st.success("Sample submitted! You can now start a new one.")
+**0.2 For each issue, please give a few words of explanation or context.**
+_(Why was this issue important? What shaped its prominence during this time?)_
 
-if st.button("📄 Download All Samples"):
-    df = pd.DataFrame(st.session_state.samples)
-    st.download_button("Download CSV", data=df.to_csv(index=False), file_name="influence_samples.csv", mime="text/csv")
+---
 
-if st.button("➕ Start New Sample"):
-    st.experimental_rerun()
+## 📡 Section 1: Media Sample Submission (One at a Time)
+
+You will go through this form once per media sample.
+
+**1.1 Media Category**
+_(TV, radio, print, online, podcast, or social media)_
+- [ ] TV
+- [ ] Radio
+- [ ] Print
+- [ ] Online news
+- [ ] Podcast
+- [ ] Social media
+- [ ] Other/hybrid
+
+(You will be asked after each sample if you’d like to add another from this category, or move to the next.)
+
+**1.2 Media Title and Description**
+- Name or episode title:
+- Platform or outlet:
+- Link (if available):
+- Air/publication date:
+
+**1.3 Transcript Availability**
+- [ ] Yes → Please provide link or notes
+- [ ] No
+- [ ] Not sure
+
+---
+
+## 📈 Section 2: Reach
+
+**Definition:** *Reach* is the estimated audience size or exposure of the content. It reflects how many people likely saw, heard, or read it.
+
+**2.1 Raw Reach (numerical):**
+_(e.g., estimated viewers, listeners, likes, views, impressions)_
+
+**2.2 Basis for this estimate:**
+_(Ratings? YouTube views? Judgment? Social media analytics? Be specific.)_
+
+**2.3 Normalized Reach Score (0–1):**
+*Use a scale where 1 = one of the highest-reach media in your context, and 0 = negligible or unknown reach.*
+
+**2.4 Notes on platform-specific amplification (optional):**
+_(e.g., rebroadcasts, shares, algorithmic boost)_
+
+---
+
+## 🔥 Section 3: Salience
+
+**Definition:** *Salience* refers to how closely this content aligns with the public concerns you listed earlier in Section 0.*
+
+**3.1 Salience Score (0–1):**
+
+**3.2 Which of your earlier-listed issues does this sample reflect?**
+_(Select or type in from your own list)_
+
+**3.3 Explanation:**
+- In what way does this sample reflect or engage with one or more of those issues?
+- Is this connection central, peripheral, or symbolic?
+
+---
+
+## 🧠 Section 4: Discursiveness (Persuasiveness)
+
+**Definition:** *Discursiveness* refers to the content’s potential to change minds, spark critical engagement, or persuade. We assess this using three classical elements of persuasion: Logos (reason), Pathos (emotion), and Ethos (credibility).*
+
+### 4.1 Logos (Logic & Reasoning)
+**Score (0–1):**
+
+**Prompt:**
+- Does the sample make arguments or build reasoning?
+- Are claims backed by evidence, causal explanation, or logical progression?
+- Does it acknowledge other sides of the issue or challenge the audience to think?
+
+### 4.2 Pathos (Emotion)
+**Score (0–1):**
+
+**Prompt:**
+- Does this sample connect emotionally—through stories, moral language, or dramatic framing?
+- Is there anger, empathy, fear, or inspiration driving the message?
+
+### 4.3 Ethos (Credibility)
+**Score (0–1):**
+
+**Prompt:**
+- Who is speaking? Do they hold public authority, social trust, or deep experience?
+- Would the average person find the speaker persuasive based on their role, background, or public perception?
+
+**4.4 Optional Reflection:**
+- What, if anything, makes this sample especially persuasive in your view?
+- What should we be watching for when analyzing discursiveness in your country?
+
+---
+
+## 🔍 Final Prompt (Per Researcher)
+**Were there any major political, economic, cultural, or foreign policy events in your country between Jan 1 and Mar 31, 2025 that you believe significantly shifted public opinion—even if they weren’t directly covered in media samples you submitted?**
+
+_(Open-ended)_
+
+---
+
+You can now return to the top to add another sample, or proceed to the next media category.
