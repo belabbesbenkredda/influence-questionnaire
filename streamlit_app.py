@@ -1,4 +1,3 @@
-
 # Public Sphere Influence Questionnaire
 
 **Welcome!**
