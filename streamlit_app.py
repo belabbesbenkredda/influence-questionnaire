@@ -8,6 +8,16 @@ st.markdown("<style>@import url('https://fonts.googleapis.com/css2?family=Lato:w
 
 st.title("🗞️ Public Sphere Influence Questionnaire")
 
+st.markdown("""
+Welcome to the **Influence Score** project for **Lebanon and Tunisia**.  
+Your insights as a researcher will help us refine how we assess the influence of media content in shaping public opinion.  
+This work supports the broader **Public Sphere Index** initiative hosted at [publicspheres.org](https://publicspheres.org).
+
+**Formula:** *Influence = Reach × Salience × Discursiveness*
+
+📌 *Feel free to answer in the language you’re most comfortable expressing yourself in—whether **Arabic**, **French**, or **English**. We encourage detailed, thoughtful responses in the language that best helps you articulate your insights.*
+""")
+
 st.markdown("<hr style='height:5px;border:none;background-color:#ff5c5c;'>", unsafe_allow_html=True)
 
 country = st.radio("Select your country context:", ["Lebanon", "Tunisia"])
