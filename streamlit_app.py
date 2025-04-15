@@ -3,7 +3,6 @@ import pandas as pd
 import requests
 from datetime import date
 
-# Set up layout and font
 st.set_page_config(page_title="Influence Questionnaire", layout="wide")
 st.markdown("<style>@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap'); html, body, [class*='css']  { font-family: 'Lato', sans-serif; }</style>", unsafe_allow_html=True)
 
@@ -15,25 +14,22 @@ Welcome to the Influence Score project for Lebanon and Tunisia. Your insights as
 **Formula:** Influence = Reach × Salience × Discursiveness
 """)
 
-# Divider style
 st.markdown("<hr style='height:5px;border:none;background-color:#ff5c5c;'>", unsafe_allow_html=True)
 
-# Country selection
 country = st.radio("Select your country context:", ["Lebanon", "Tunisia"])
 st.markdown("<hr style='height:5px;border:none;background-color:#ff5c5c;'>", unsafe_allow_html=True)
 
-# Session state
 if "samples" not in st.session_state:
     st.session_state.samples = []
 
-# Section 0: Salient Issues
+# Section 0
 st.header("Section 0: Salient Issues in Your Context")
 st.write("Please tell us what issues you consider most salient in your country between Jan 1 and Mar 31, 2025.")
 issue_list = st.text_area("List 5–10 top public issues (one per line):")
 issue_context = st.text_area("Briefly explain why these issues were prominent.")
 st.markdown("<hr style='height:5px;border:none;background-color:#ff5c5c;'>", unsafe_allow_html=True)
 
-# Section 1: Media Sample Submission
+# Section 1
 st.header("Section 1: Media Sample Submission")
 category = st.selectbox("Select the media category:", ["TV", "Radio", "Print", "Online news", "Podcast", "Social media", "Other/hybrid"])
 title = st.text_input("Media Title or Description")
@@ -44,16 +40,16 @@ transcript = st.radio("Transcript Available?", ["Yes", "No", "Not sure"])
 transcript_details = st.text_input("Transcript Link or Notes (if available)")
 st.markdown("<hr style='height:5px;border:none;background-color:#ff5c5c;'>", unsafe_allow_html=True)
 
-# Section 2: Reach
+# Section 2
 st.header("Section 2: Reach")
-st.write("Reach refers to how many people were likely exposed to this content. This includes viewers, listeners, or online impressions.")
+st.write("Reach refers to how many people were likely exposed to this content.")
 raw_reach = st.text_input("Estimated raw reach (text or number):")
 reach_basis = st.text_area("How did you estimate this number?")
 norm_reach = st.slider("Reach Score (0–1)", 0.0, 1.0, 0.5, 0.01)
 reach_notes = st.text_area("Additional notes about platform amplification or repeat circulation (optional)")
 st.markdown("<hr style='height:5px;border:none;background-color:#ff5c5c;'>", unsafe_allow_html=True)
 
-# Section 3: Salience
+# Section 3
 st.header("Section 3: Salience")
 st.write("Salience measures how relevant this content is to the public issues you listed earlier.")
 salience_score = st.slider("Salience Score (0–1)", 0.0, 1.0, 0.5, 0.01)
@@ -61,9 +57,9 @@ salience_match = st.text_area("Which of your listed issues does this sample refl
 salience_explanation = st.text_area("Explain how the content reflects or engages with the issue(s).")
 st.markdown("<hr style='height:5px;border:none;background-color:#ff5c5c;'>", unsafe_allow_html=True)
 
-# Section 4: Discursiveness
+# Section 4
 st.header("Section 4: Discursiveness")
-st.write("Discursiveness refers to how persuasive or opinion-shaping the content is. This is assessed using Logos (reason), Pathos (emotion), and Ethos (credibility).")
+st.write("Discursiveness refers to how persuasive or opinion-shaping the content is.")
 logos_score = st.slider("Logos (Reasoning) Score (0–1)", 0.0, 1.0, 0.5, 0.01)
 logos_expl = st.text_area("Does the sample use evidence, arguments, or reasoning to persuade?")
 pathos_score = st.slider("Pathos (Emotion) Score (0–1)", 0.0, 1.0, 0.5, 0.01)
@@ -73,7 +69,7 @@ ethos_expl = st.text_area("Who is speaking? Do they carry public trust or profes
 reflection = st.text_area("Optional: What makes this sample especially persuasive in your view?")
 st.markdown("<hr style='height:5px;border:none;background-color:#ff5c5c;'>", unsafe_allow_html=True)
 
-# Final reflection
+# Final Reflection
 st.header("Final Reflection")
 major_events = st.text_area("Were there any major events during this period (Jan–Mar 2025)?")
 
@@ -124,9 +120,8 @@ if st.button("Submit Sample"):
     except Exception as e:
         st.error(f"❌ Error sending to sheet: {e}")
 
-# CSV download
+# Download
 if st.session_state.samples:
     if st.button("📄 Download All Samples as CSV"):
         df = pd.DataFrame(st.session_state.samples)
         st.download_button("Download CSV", data=df.to_csv(index=False), file_name="influence_samples.csv", mime="text/csv")
-
