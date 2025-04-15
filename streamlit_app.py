@@ -3,12 +3,6 @@ import pandas as pd
 import requests
 from datetime import date
 
-# Helper to clear form inputs but keep saved samples
-def clear_form():
-    for key in list(st.session_state.keys()):
-        if key != "samples":
-            del st.session_state[key]
-
 st.set_page_config(page_title="Influence Questionnaire", layout="wide")
 st.markdown("<style>@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap'); html, body, [class*='css']  { font-family: 'Lato', sans-serif; }</style>", unsafe_allow_html=True)
 
@@ -107,8 +101,6 @@ if st.button("Submit Sample"):
         )
         if response.status_code == 200:
             st.success("✅ Sample submitted successfully!")
-            clear_form()
-            st.experimental_rerun()
         else:
             st.warning(f"⚠️ Submission failed: status {response.status_code}")
     except Exception as e:
