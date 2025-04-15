@@ -108,7 +108,7 @@ if st.button("Submit Sample"):
 
     try:
         response = requests.post(
-            "https://script.google.com/macros/s/AKfycbzmsS-LMnV30r_oiN3gLBlzIr3UMqbKA0xBO0tDNHYrwbLaqZgigH9K_3ylK4Cpi8uf/exec",
+            "https://script.google.com/macros/s/AKfycbyezHJ7K5y8ulNgfMJbKL639MWDcXQDW3GtYtkH_inoXJfYLy-UoMcdq_yRci8Ko_lWIA/exec",
             json=sample,
             headers={"Content-Type": "application/json"},
             timeout=10
