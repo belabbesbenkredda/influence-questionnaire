@@ -2,13 +2,11 @@ import streamlit as st
 import pandas as pd
 import requests
 from datetime import date
-from streamlit.runtime.scriptrunner import rerun  # Correct rerun import
 
-# Clear all input fields after submission, except saved samples
+# Helper to clear form inputs but keep saved samples
 def clear_form():
-    keys_to_keep = ["samples"]
     for key in list(st.session_state.keys()):
-        if key not in keys_to_keep:
+        if key != "samples":
             del st.session_state[key]
 
 st.set_page_config(page_title="Influence Questionnaire", layout="wide")
@@ -110,7 +108,7 @@ if st.button("Submit Sample"):
         if response.status_code == 200:
             st.success("✅ Sample submitted successfully!")
             clear_form()
-            rerun()
+            st.experimental_rerun()
         else:
             st.warning(f"⚠️ Submission failed: status {response.status_code}")
     except Exception as e:
