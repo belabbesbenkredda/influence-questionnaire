@@ -22,7 +22,6 @@ st.markdown("<hr style='height:5px;border:none;background-color:#ff5c5c;'>", uns
 
 st.markdown("### Section 0: Salient issue in your context")
 country = st.radio("Select your country context:", ["Lebanon", "Tunisia"])
-st.markdown("<hr style='height:5px;border:none;background-color:#ff5c5c;'>", unsafe_allow_html=True)
 
 if "samples" not in st.session_state:
     st.session_state.samples = []
